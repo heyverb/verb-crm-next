@@ -8,6 +8,8 @@ import {
   PINCODE_REGEX,
 } from "./stringUtils";
 import { DateTime } from "luxon";
+import encode from "jwt-encode";
+import { jwtDecode } from "jwt-decode";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -169,4 +171,28 @@ export const parseJsonInArray = (
 
     return [];
   }
+};
+
+export const passwordConfirmPasswrodValidator = (pass, cpass) => {
+  if (pass === cpass) {
+    return undefined;
+  }
+  return "Passwords do not match.";
+};
+
+export function isValidURL(url: string) {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(url);
+}
+
+export const encryptPassword = (password: string): string => {
+  const secret = "JDKNSOoaidjfnosada12312";
+  const data = {
+    password: password,
+  };
+  return encode(data, secret);
+};
+
+export const decryptPassword = (password: string): { password: string } => {
+  return jwtDecode(password);
 };

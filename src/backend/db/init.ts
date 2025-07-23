@@ -5,6 +5,7 @@ otpDb
   .init()
   .then(async () => {
     console.log("Otp database initialized");
+    await otpDb.deleteAllOtp();
     await otpDb
       .createOtp("test", "22")
       .then(() => {

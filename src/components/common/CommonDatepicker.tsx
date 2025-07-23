@@ -58,7 +58,7 @@ const CommonDatepicker = <
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-4" align="start">
+            <PopoverContent className="w-auto sm:w-sm p-4" align="start">
               <Calendar
                 onChange={(date) => {
                   field.onChange(

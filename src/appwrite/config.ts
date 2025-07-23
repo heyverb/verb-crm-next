@@ -1,4 +1,4 @@
-import { Client, Account, Databases, Storage } from "appwrite";
+import { Client, Account, Databases, Storage, Avatars } from "appwrite";
 
 export const client = new Client();
 
@@ -16,9 +16,10 @@ export const appwriteConfig = {
   classCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_CLASS_COLLECTION_ID,
   teacherCollection:
     process.env.NEXT_PUBLIC_VERB_APPWRITE_TEACHER_COLLECTION_ID,
+  schoolCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_SCHOOL_COLLECTION_ID,
+  userCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_USER_COLLECTION_ID,
+  bucketId: process.env.NEXT_PUBLIC_VERB_APPWRITE_BUCKET_ID,
 };
-
-console.log("Appwrite Config", appwriteConfig);
 
 client
   .setEndpoint(appwriteConfig.endpoint!)
@@ -27,5 +28,6 @@ client
 export const account = new Account(client);
 export const database = new Databases(client);
 export const storage = new Storage(client);
+export const avatars = new Avatars(client);
 
 export { ID, type Models } from "appwrite";

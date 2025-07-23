@@ -1,7 +1,6 @@
 import {
   AudioWaveform,
   BookOpen,
-  Bot,
   Command,
   GalleryVerticalEnd,
   HelpCircleIcon,
@@ -10,6 +9,7 @@ import {
   Settings2,
   SettingsIcon,
   SquareTerminal,
+  UsersRound,
 } from "lucide-react";
 
 export const route = {
@@ -64,7 +64,6 @@ export const route = {
       title: "Admissions",
       url: "admissions",
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: "Overview",
@@ -85,6 +84,21 @@ export const route = {
       ],
     },
     {
+      title: "Students",
+      url: "students",
+      icon: UsersRound,
+      items: [
+        {
+          title: "Overview",
+          url: "/dashboard/students/overview",
+        },
+        {
+          title: "list",
+          url: "/dashboard/students/list",
+        },
+      ],
+    },
+    {
       title: "Attendance",
       url: "attendance",
       icon: SquareTerminal,
@@ -100,25 +114,6 @@ export const route = {
         },
         {
           title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Students",
-      url: "students",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
           url: "#",
         },
       ],
@@ -152,20 +147,16 @@ export const route = {
       icon: Settings2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/class/overview",
         },
         {
-          title: "Team",
-          url: "#",
+          title: "Create admission",
+          url: "/dashboard/class/create-class",
         },
         {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Applications",
+          url: "/dashboard/class/list",
         },
       ],
     },

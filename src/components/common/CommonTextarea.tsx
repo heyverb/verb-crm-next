@@ -15,6 +15,7 @@ export interface InputProps<
 > extends UseControllerProps<TFieldValues, TName> {
   label?: string;
   placeholder: string;
+  required?: boolean;
 }
 
 const CommonTextarea = <
@@ -30,7 +31,12 @@ const CommonTextarea = <
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && (
+            <FormLabel className="flex items-center gap-0.5">
+              {label}
+              {required && <span className="font-bold text-red-600">*</span>}
+            </FormLabel>
+          )}
           <FormControl>
             <Textarea placeholder={placeholder} {...field} />
           </FormControl>

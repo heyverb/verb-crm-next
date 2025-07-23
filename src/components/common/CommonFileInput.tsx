@@ -20,6 +20,7 @@ export interface InputProps<
 > extends UseControllerProps<TFieldValues, TName>,
     InputBaseProps {
   label?: string;
+  required?: boolean;
 }
 
 const CommonFileInput = <
@@ -28,7 +29,7 @@ const CommonFileInput = <
 >(
   props: InputProps<TFieldValues, TName>
 ) => {
-  const { control, name, label, ...rest } = props;
+  const { control, name, label, required, ...rest } = props;
 
   return (
     <FormField
@@ -36,7 +37,12 @@ const CommonFileInput = <
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && (
+            <FormLabel className="flex items-center gap-0.5">
+              {label}
+              {required && <span className="font-bold text-red-600">*</span>}
+            </FormLabel>
+          )}
           <FormControl>
             <InputFile
               value=""

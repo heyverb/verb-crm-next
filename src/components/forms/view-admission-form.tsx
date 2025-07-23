@@ -1,7 +1,6 @@
 "use client";
 
 import { Control, useFieldArray, useFormContext } from "react-hook-form";
-import CommonInput from "../common/CommonInput";
 import ControlledSelect from "../common/ControlledSelect";
 import { CreateAdmissionSchema } from "@/appwrite/schema/admission.schema";
 import * as z from "zod";
@@ -19,6 +18,7 @@ import {
 import { getCity, getState } from "@/lib/place.helper";
 import { useEffect } from "react";
 import ControlledFileWithSelectInput from "../shared/ControlledFileWithSelectInput";
+import ControlledInput from "../controlled/ControlledInput";
 
 export interface CreateAdmissionType
   extends z.infer<typeof CreateAdmissionSchema> {
@@ -59,14 +59,14 @@ export function ViewUpdateAdmissionForm({ control }: AdmissionFormProps) {
           Student Information
         </h3>
         <div className="grid gap-4 sm:grid-cols-2">
-          <CommonInput<CreateAdmissionType, "fname">
+          <ControlledInput<CreateAdmissionType, "fname">
             control={control}
             name="fname"
             label="First Name"
             placeholder="Mayank"
           />
 
-          <CommonInput<CreateAdmissionType, "lname">
+          <ControlledInput<CreateAdmissionType, "lname">
             control={control}
             name="lname"
             label="Last Name"
@@ -116,21 +116,21 @@ export function ViewUpdateAdmissionForm({ control }: AdmissionFormProps) {
           Guardian Information
         </h3>
         <div className="grid gap-4 sm:grid-cols-2">
-          <CommonInput<CreateAdmissionType, "guardian_first_name">
+          <ControlledInput<CreateAdmissionType, "guardian_first_name">
             control={control}
             name="guardian_first_name"
             label="Guardian First Name"
             placeholder="Guardians First Name"
           />
 
-          <CommonInput<CreateAdmissionType, "guardian_last_name">
+          <ControlledInput<CreateAdmissionType, "guardian_last_name">
             control={control}
             name="guardian_last_name"
             label="Guardian Last Name"
             placeholder="Guardians Last Name"
           />
 
-          <CommonInput<CreateAdmissionType, "guardian_phone">
+          <ControlledInput<CreateAdmissionType, "guardian_phone">
             control={control}
             name="guardian_phone"
             label="Guardian Phone"
@@ -138,7 +138,7 @@ export function ViewUpdateAdmissionForm({ control }: AdmissionFormProps) {
             type="tel"
           />
 
-          <CommonInput<CreateAdmissionType, "guardian_email">
+          <ControlledInput<CreateAdmissionType, "guardian_email">
             control={control}
             name="guardian_email"
             label="Guardian Email"
@@ -153,28 +153,28 @@ export function ViewUpdateAdmissionForm({ control }: AdmissionFormProps) {
           Address Information
         </h3>
         <div className="grid gap-4 sm:grid-cols-2">
-          <CommonInput<CreateAdmissionType, "flat_no">
+          <ControlledInput<CreateAdmissionType, "flat_no">
             control={control}
             name="flat_no"
             label="Flat No (optional)"
             placeholder="eg. 101"
           />
 
-          <CommonInput<CreateAdmissionType, "address_line1">
+          <ControlledInput<CreateAdmissionType, "address_line1">
             control={control}
             name="address_line1"
             label="Address line1"
             placeholder="eg. address line1"
           />
 
-          <CommonInput<CreateAdmissionType, "address_line2">
+          <ControlledInput<CreateAdmissionType, "address_line2">
             control={control}
             name="address_line2"
             label="Address line2 (optional)"
             placeholder="eg. address line2"
           />
 
-          <CommonInput<CreateAdmissionType, "pincode">
+          <ControlledInput<CreateAdmissionType, "pincode">
             control={control}
             name="pincode"
             label="Pincode"

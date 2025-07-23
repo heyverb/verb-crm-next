@@ -2,7 +2,7 @@ import { ChartAreaInteractive } from "@/components/dashboard/chart-area-interact
 import { SectionCards } from "@/components/dashboard/section-cards";
 import React from "react";
 
-const Page = () => {
+const AdmissionPage = () => {
   return (
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
       <SectionCards items={[]} />
@@ -13,4 +13,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default AdmissionPage;

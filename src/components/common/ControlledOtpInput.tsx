@@ -10,13 +10,15 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { UseControllerProps } from "react-hook-form";
 
 export interface ControlledOtpInputProps extends UseControllerProps<any> {
-  label?: string;
+  label?: string | React.ReactElement;
+  required?: boolean;
 }
 
 const ControlledOtpInput: FC<ControlledOtpInputProps> = ({
   control,
   name,
   label,
+  required,
 }) => {
   return (
     <div className="w-full">
@@ -25,7 +27,12 @@ const ControlledOtpInput: FC<ControlledOtpInputProps> = ({
         name={name}
         render={({ field }) => (
           <FormItem>
-            {label && <FormLabel>{label}</FormLabel>}
+            {label && (
+              <FormLabel className="flex items-center gap-0.5">
+                {label}
+                {required && <span className="font-bold text-red-600">*</span>}
+              </FormLabel>
+            )}
             <FormControl>
               <InputOTP maxLength={6} {...field} pattern="[0-9]*">
                 <InputOTPGroup className="w-full">

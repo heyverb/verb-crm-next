@@ -1,6 +1,13 @@
 import { LoginForm } from "@/components/forms/login-form";
+import { generateMetadata } from "@/lib/page.helper";
 import { GalleryVerticalEnd } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = generateMetadata(
+  "Login to your account",
+  "login to your account"
+);
 
 export default function LoginPage() {
   return (

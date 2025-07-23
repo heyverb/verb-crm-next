@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { Models } from "../config";
 import {
   ReligionEnum as UserReligionEnum,
   CastEnum as UserCastEnum,
   GenderEnum as UserGenderEnum,
   BloodgroupEnum as UserBloodgroupEnum,
-  StatusEnum,
+  AdmissionStatusEnum,
 } from "../interface/admission.interface";
 
 // You need to define these enums/types beforehand
@@ -55,7 +56,7 @@ export const CreateAdmissionSchema = z.object({
   address_line2: z.string().optional(),
   pincode: z.string().min(6, "Pincode is required"),
   state: z.string().min(2, "State is required"),
-  status: z.string().default(StatusEnum.Pending).optional(),
+  status: z.string().default(AdmissionStatusEnum.PENDING).optional(),
   city: z.string().min(2, "City is required"),
   student_document: z
     .array(StudentDocumentSchema)
@@ -64,6 +65,16 @@ export const CreateAdmissionSchema = z.object({
     .array(GuardianDocumentSchema)
     .min(1, "At least one guardian document is required"),
 });
+
+export interface CreateAdmissionType
+  extends z.infer<typeof CreateAdmissionSchema> {
+  id?: string;
+  $id?: string;
+}
+
+export interface AdmissionModel
+  extends Omit<CreateAdmissionType, keyof Models.Document>,
+    Models.Document {}
 
 export const CreateAdmissionDefaultValues: z.infer<
   typeof CreateAdmissionSchema
@@ -84,7 +95,7 @@ export const CreateAdmissionDefaultValues: z.infer<
   address_line2: "",
   pincode: "",
   state: "",
-  status: StatusEnum.Pending as StatusEnum,
+  status: AdmissionStatusEnum.PENDING as AdmissionStatusEnum,
   city: "",
   student_document: [{ name: "", url: "" }],
   guardian_document: [{ name: "", url: "" }],

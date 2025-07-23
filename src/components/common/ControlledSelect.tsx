@@ -17,6 +17,7 @@ export interface InputProps<
   label?: string;
   placeholder: string;
   disabled?: boolean;
+  required?: boolean;
   options?: { value: string; label: string }[];
   className?: string;
 }
@@ -27,14 +28,20 @@ const ControlledSelect = <
 >(
   props: InputProps<TFieldValues, TName>
 ) => {
-  const { control, name, label, placeholder, options, disabled } = props;
+  const { control, name, required, label, placeholder, options, disabled } =
+    props;
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && (
+            <FormLabel className="flex items-center gap-0.5">
+              {label}
+              {required && <span className="font-bold text-red-600">*</span>}
+            </FormLabel>
+          )}
           <Select
             onValueChange={field.onChange}
             defaultValue={field.value}

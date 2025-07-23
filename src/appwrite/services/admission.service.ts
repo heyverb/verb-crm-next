@@ -1,19 +1,9 @@
 import { getErrorMessage } from "@/lib/error.helper";
-import { appwriteConfig, database, ID, Models } from "../config";
-import { CreateAdmissionSchema } from "../schema/admission.schema";
-import { z } from "zod";
+import { appwriteConfig, database, ID } from "../config";
+import { AdmissionModel } from "../schema/admission.schema";
+import { Query, QueryTypes } from "appwrite";
 
-export interface AdmissionModel
-  extends Omit<CreateAdmissionType, keyof Models.Document>,
-    Models.Document {}
-
-export interface CreateAdmissionType
-  extends z.infer<typeof CreateAdmissionSchema> {
-  id?: string;
-  $id?: string;
-}
-
-export const CreateAdmission = async (data: CreateAdmissionType) => {
+export const CreateAdmission = async (data: AdmissionModel) => {
   try {
     return (await database.createDocument(
       appwriteConfig.databaseId!,
@@ -26,14 +16,16 @@ export const CreateAdmission = async (data: CreateAdmissionType) => {
   }
 };
 
-export const UpdateAdmission = async (data: CreateAdmissionType) => {
+export const UpdateAdmission = async (data: AdmissionModel) => {
   try {
-    return (await database.updateDocument(
+    const studentres = (await database.updateDocument(
       appwriteConfig.databaseId!,
       appwriteConfig.admissionCollection!,
       data.$id!,
       data
     )) as AdmissionModel;
+
+    return studentres;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
@@ -49,11 +41,28 @@ export const DeleteAdmission = async (id: string) => {
     throw new Error(getErrorMessage(error));
   }
 };
-export const GetAdmissions = async () => {
+export const GetAdmissions = async ({
+  pageIndex,
+  pageSize,
+}: {
+  pageIndex: string;
+  pageSize: string;
+}) => {
+  const query: QueryTypes[] = [];
+
+  if (pageSize) {
+    query.push(Query.limit(parseInt(pageSize)));
+  }
+  if (pageIndex) {
+    const offset = parseInt(pageIndex) * parseInt(pageIndex);
+    query.push(Query.offset(offset));
+  }
+
   try {
     const response = await database.listDocuments(
       appwriteConfig.databaseId!,
-      appwriteConfig.admissionCollection!
+      appwriteConfig.admissionCollection!,
+      [...query.map(String)]
     );
     return response.documents;
   } catch (error) {

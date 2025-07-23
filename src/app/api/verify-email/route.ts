@@ -21,6 +21,8 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    await Otpmodel.deleteOtp(email);
+
     return NextResponse.json(
       { message: "Otp verified successfully" },
       { status: 200 }

@@ -11,7 +11,7 @@ import {
 
 interface ModalSheetProps {
   children: React.ReactNode;
-  title?: string;
+  title?: string | React.ReactNode;
   description?: string;
   trigger?: React.ReactNode;
   footer?: React.ReactNode[];

@@ -106,7 +106,7 @@ export interface CreateAdmissionDto {
    * @type {string}
    * @memberof CreateAdmissionDto
    */
-  status: StatusEnum;
+  status: AdmissionStatusEnum;
   /**
    *
    * @type {Array<StudentDocument>}
@@ -169,11 +169,11 @@ export enum BloodgroupEnum {
   Ab2 = "AB-",
 }
 
-export enum StatusEnum {
-  Submitted = "SUBMITTED",
-  Pending = "PENDING",
-  Accepted = "ACCEPTED",
-  Rejected = "REJECTED",
+export enum AdmissionStatusEnum {
+  SUBMITTED = "SUBMITTED",
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
 }
 
 export interface StudentDocument {

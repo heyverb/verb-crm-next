@@ -1,11 +1,15 @@
 import { Sequelize, DataTypes } from "sequelize";
 import path from "path";
 
-const databasePath = path.join(process.cwd(), "otp.sqlite");
+const databasePath = path.join(
+  process.cwd(),
+  "src/backend/db/otp",
+  "otp.sqlite"
+);
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  database: databasePath,
+  storage: databasePath,
 });
 
 const Otpmodel = sequelize.define(
@@ -50,6 +54,11 @@ export class OtpModel {
   async deleteOtp(email: string) {
     await sequelize.sync();
     return await Otpmodel.destroy({ where: { email } });
+  }
+
+  async deleteAllOtp() {
+    await sequelize.sync();
+    return await Otpmodel.truncate({});
   }
 
   async updateOtp(email: string, otp: string) {
