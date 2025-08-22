@@ -23,9 +23,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function TeamSwitcher({ teams }: { teams: SchoolModel[] }) {
   const { isMobile } = useSidebar();
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const [activeTeam, setActiveTeam] = React.useState(teams?.[0] || null);
 
-  if (!activeTeam) {
+  if (!activeTeam || !teams?.length) {
     return null;
   }
 

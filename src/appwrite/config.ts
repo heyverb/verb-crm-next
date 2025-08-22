@@ -18,6 +18,15 @@ export const appwriteConfig = {
     process.env.NEXT_PUBLIC_VERB_APPWRITE_TEACHER_COLLECTION_ID,
   schoolCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_SCHOOL_COLLECTION_ID,
   userCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_USER_COLLECTION_ID,
+  studentCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_STUDENT_COLLECTION_ID,
+  sectionCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_SECTION_COLLECTION_ID,
+  enrollmentCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_ENROLLMENT_COLLECTION_ID,
+  academicYearCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_ACADEMIC_YEAR_COLLECTION_ID,
+  attendanceCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_ATTENDANCE_COLLECTION_ID,
+  examScheduleCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_EXAM_SCHEDULE_COLLECTION_ID,
+  resultCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_RESULT_COLLECTION_ID,
+  feeCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_FEE_COLLECTION_ID,
+  feePaymentCollection: process.env.NEXT_PUBLIC_VERB_APPWRITE_FEE_PAYMENT_COLLECTION_ID,
   bucketId: process.env.NEXT_PUBLIC_VERB_APPWRITE_BUCKET_ID,
 };
 

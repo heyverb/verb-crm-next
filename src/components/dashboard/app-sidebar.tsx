@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-
+import { useRouter } from "next/navigation";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Sidebar,
   SidebarContent,
@@ -13,34 +14,42 @@ import { NavSecondary } from "./nav-secondary";
 import { NavUser } from "./nav-user";
 import { TeamSwitcher } from "./team-switcher";
 import { route } from "@/app/routes";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { logoutUser } from "@/appwrite/services/user.service";
-import { logutUser } from "@/app/redux/action";
-import useApi from "@/hooks/useApi";
-import { useRouter } from "next/navigation";
+import { logoutUser, getCurrentUser } from "@/appwrite/services/user.service";
+import { useAuth } from "@/hooks/useAuth";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const { mutation, isLoading } = useApi(logoutUser);
+  const { user } = useAuth();
 
-  const { user: userData, school } = useAppSelector(
-    (state) => state.globalReducer
-  );
+  // For now, we'll use a single school until we implement multi-school support
+  const schools = user ? [{ 
+    $id: "1",
+    school_name: "VERB School",
+    city: "Mumbai",
+    poster: "/school-logo.png"
+  }] : [];
 
-  console.log(school);
+  const { data: userDetails } = useQuery({
+    queryKey: ["user-details"],
+    queryFn: getCurrentUser,
+    enabled: !!user,
+  });
 
-  const logout = async () => {
-    try {
-      await mutation.mutateAsync({});
-      dispatch(logutUser());
+  const logoutMutation = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
       router.replace("/auth/login");
-    } catch {}
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
   };
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={school.documents} />
+        <TeamSwitcher teams={schools || []} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={route.navMain} collapsibleItem={route.navModel} />
@@ -48,9 +57,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <NavUser
-          user={userData?.db?.documents[0] || null}
-          loading={isLoading}
-          logout={logout}
+          user={userDetails as any}
+          loading={logoutMutation.isPending}
+          logout={handleLogout}
         />
       </SidebarFooter>
     </Sidebar>

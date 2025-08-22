@@ -3,13 +3,15 @@ import {
   BookOpen,
   Command,
   GalleryVerticalEnd,
-  HelpCircleIcon,
-  LayoutDashboardIcon,
-  SearchIcon,
-  Settings2,
-  SettingsIcon,
+  HelpCircle,
+  LayoutDashboard,
+  Search,
+  Settings,
   SquareTerminal,
-  UsersRound,
+  Users,
+  GraduationCap,
+  FileText,
+  DollarSign,
 } from "lucide-react";
 
 export const route = {
@@ -22,7 +24,7 @@ export const route = {
     {
       title: "Overview",
       url: "/dashboard/overview",
-      icon: LayoutDashboardIcon,
+      icon: LayoutDashboard,
     },
   ],
   teams: [
@@ -46,17 +48,17 @@ export const route = {
     {
       title: "Settings",
       url: "#",
-      icon: SettingsIcon,
+      icon: Settings,
     },
     {
       title: "Get Help",
       url: "#",
-      icon: HelpCircleIcon,
+      icon: HelpCircle,
     },
     {
       title: "Search",
       url: "#",
-      icon: SearchIcon,
+      icon: Search,
     },
   ],
   navModel: [
@@ -86,7 +88,7 @@ export const route = {
     {
       title: "Students",
       url: "students",
-      icon: UsersRound,
+      icon: Users,
       items: [
         {
           title: "Overview",
@@ -121,30 +123,26 @@ export const route = {
     {
       title: "Teachers",
       url: "teachers",
-      icon: BookOpen,
+      icon: GraduationCap,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/teachers/overview",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "List",
+          url: "/dashboard/teachers/list",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "Add Teacher",
+          url: "/dashboard/teachers/create",
         },
       ],
     },
     {
       title: "Class",
       url: "class",
-      icon: Settings2,
+      icon: BookOpen,
       items: [
         {
           title: "Overview",
@@ -163,46 +161,57 @@ export const route = {
     {
       title: "Subjects",
       url: "subjects",
-      icon: Settings2,
+      icon: BookOpen,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/subjects/overview",
         },
         {
-          title: "Team",
-          url: "#",
+          title: "List",
+          url: "/dashboard/subjects/list",
         },
         {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Add Subject",
+          url: "/dashboard/subjects/create",
         },
       ],
     },
     {
       title: "Exams",
-      url: "exam",
-      icon: Settings2,
+      url: "exams",
+      icon: FileText,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/exams/overview",
         },
         {
-          title: "Team",
-          url: "#",
+          title: "Schedule",
+          url: "/dashboard/exams/schedule",
         },
         {
-          title: "Billing",
-          url: "#",
+          title: "Results",
+          url: "/dashboard/exams/results",
+        },
+      ],
+    },
+    {
+      title: "Fees",
+      url: "fees",
+      icon: DollarSign,
+      items: [
+        {
+          title: "Overview",
+          url: "/dashboard/fees/overview",
         },
         {
-          title: "Limits",
-          url: "#",
+          title: "Payments",
+          url: "/dashboard/fees/payments",
+        },
+        {
+          title: "Pending",
+          url: "/dashboard/fees/pending",
         },
       ],
     },

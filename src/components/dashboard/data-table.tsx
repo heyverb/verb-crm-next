@@ -74,7 +74,7 @@ import Loader from "../common/Loader";
 
 type DataTableProps = {
   data: any[];
-  dataStatus: WidgetItemsProps["items"];
+  dataStatus?: WidgetItemsProps["items"];
   columns: any;
   showSearch?: boolean;
   showPagination?: boolean;
@@ -122,10 +122,10 @@ export function DataTable({
   paginationData,
   tableRightNavigationComponent,
   showCustomiseColumn,
-  showDataStatusTab,
+  showDataStatusTab = true,
   loading,
 }: DataTableProps) {
-  const [tab, setTab] = React.useState(dataStatus[0].key);
+  const [tab, setTab] = React.useState(dataStatus?.[0]?.key || "all");
   const [data, setData] = React.useState(() => initialData);
   const [rowSelection, setRowSelection] = React.useState({});
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -219,46 +219,42 @@ export function DataTable({
           View
         </Label>
 
-        {showDataStatusTab && (
+        {showDataStatusTab && dataStatus && dataStatus.length > 0 && (
           <>
-            {dataStatus.length && (
-              <Select
-                defaultValue={tab}
-                onValueChange={(value) => {
-                  console.log(value);
-                }}
+            <Select
+              defaultValue={tab}
+              onValueChange={(value) => {
+                setTab(value);
+              }}
+            >
+              <SelectTrigger
+                className="@4xl/main:hidden flex w-fit"
+                id="view-selector"
               >
-                <SelectTrigger
-                  className="@4xl/main:hidden flex w-fit"
-                  id="view-selector"
-                >
-                  <SelectValue placeholder="Select a view" />
-                </SelectTrigger>
-                <SelectContent>
-                  {dataStatus.map((status, index) => (
-                    <SelectItem key={index} value={status.key!}>
-                      {capitalizeEnum(status.key!)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-
-            {dataStatus.length && (
-              <TabsList className="@4xl/main:flex hidden">
+                <SelectValue placeholder="Select a view" />
+              </SelectTrigger>
+              <SelectContent>
                 {dataStatus.map((status, index) => (
-                  <TabsTrigger key={index} value={status.key!}>
-                    {capitalizeEnum(status.key!)}{" "}
-                    <Badge
-                      variant="secondary"
-                      className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
-                    >
-                      {status.value}
-                    </Badge>
-                  </TabsTrigger>
+                  <SelectItem key={index} value={status.key!}>
+                    {capitalizeEnum(status.key!)}
+                  </SelectItem>
                 ))}
-              </TabsList>
-            )}
+              </SelectContent>
+            </Select>
+
+            <TabsList className="@4xl/main:flex hidden">
+              {dataStatus.map((status, index) => (
+                <TabsTrigger key={index} value={status.key!}>
+                  {capitalizeEnum(status.key!)}{" "}
+                  <Badge
+                    variant="secondary"
+                    className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
+                  >
+                    {status.value}
+                  </Badge>
+                </TabsTrigger>
+              ))}
+            </TabsList>
           </>
         )}
 

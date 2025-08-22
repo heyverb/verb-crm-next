@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { generateMetadata } from "@/lib/page.helper";
-import ListPage from "./ListPage";
+import StudentListPage from "./StudentListPage";
 
 export const metadata: Metadata = generateMetadata(
-  "Application",
-  "Admission applications"
+  "Students",
+  "Manage all students"
 );
 
 export default function Page() {
-  return <ListPage />;
+  return <StudentListPage />;
 }

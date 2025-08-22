@@ -64,6 +64,7 @@ export const GetAdmissions = async ({
       appwriteConfig.admissionCollection!,
       [...query.map(String)]
     );
+    console.log("response", response);
     return response.documents;
   } catch (error) {
     throw new Error(getErrorMessage(error));

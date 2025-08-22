@@ -1,10 +1,13 @@
 import { getErrorMessage } from "@/lib/error.helper";
 import { account, appwriteConfig, avatars, database, ID } from "../config";
 import { SchoolAdminModel } from "../schema/school.schema";
+import { UserModel, UserRegistrationModel } from "../schema/user.schema";
 import { Models, Query } from "appwrite";
 import { encryptPassword } from "@/lib/utils";
+import { UserRole } from "../interface/user.interface";
 
 export type SchoolAdminInterface = SchoolAdminModel & Models.Document;
+export type UserInterface = UserModel & Models.Document;
 
 export const CreateUser = async (data: SchoolAdminModel) => {
   const { email, fname, lname, password } = data;
@@ -143,4 +146,82 @@ export const signin = async (payload: { email: string; password: string }) => {
 
 export const logoutUser = async () => {
   return await account.deleteSession("current");
+};
+
+export const CreateNewUser = async (data: UserRegistrationModel) => {
+  const { email, name, password, role, phone, schoolId } = data;
+  try {
+    const newAccount = await account.create(
+      ID.unique(),
+      email.toLowerCase(),
+      password,
+      name
+    );
+
+    if (!newAccount) {
+      throw new Error("Account creation failed");
+    }
+
+    const avatarUrl = await avatars.getInitials(name);
+    const encryptedPassword = await encryptPassword(password);
+
+    const userDoc = await database.createDocument(
+      appwriteConfig.databaseId!,
+      appwriteConfig.userCollection!,
+      ID.unique(),
+      {
+        email: email.toLowerCase(),
+        name,
+        role,
+        phone,
+        avatar: avatarUrl.toString(),
+        schoolId,
+        accountId: newAccount.$id,
+        password: encryptedPassword,
+        status: "ACTIVE",
+      }
+    );
+
+    return userDoc as UserInterface;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getUsersByRole = async (role: UserRole, schoolId: string) => {
+  try {
+    const response = await database.listDocuments(
+      appwriteConfig.databaseId!,
+      appwriteConfig.userCollection!,
+      [
+        Query.equal("role", role),
+        Query.equal("schoolId", schoolId),
+        Query.equal("status", "ACTIVE"),
+      ]
+    );
+    return response.documents as UserInterface[];
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getCurrentUser = async (): Promise<UserInterface | null> => {
+  try {
+    const currentAccount = await account.get();
+
+    const response = await database.listDocuments(
+      appwriteConfig.databaseId!,
+      appwriteConfig.userCollection!,
+      [Query.equal("accountId", currentAccount.$id)]
+    );
+
+    if (response.documents.length === 0) {
+      return null;
+    }
+
+    return response.documents[0] as UserInterface;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

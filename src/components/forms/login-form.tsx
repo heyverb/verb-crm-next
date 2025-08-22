@@ -10,7 +10,7 @@ import useApi from "@/hooks/useApi";
 import { signin } from "@/appwrite/services/user.service";
 import { toast } from "sonner";
 import Loader from "../common/Loader";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ControlledPassworInput from "../common/ControlledPassworInput";
 import ControlledInput from "../controlled/ControlledInput";
 const LoginSchema = z.object({
@@ -21,7 +21,10 @@ const LoginSchema = z.object({
 type LoginType = z.infer<typeof LoginSchema>;
 
 export function LoginForm() {
-  const route = useRouter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || "/dashboard/overview";
+  
   const form = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
     mode: "onChange",
@@ -29,13 +32,14 @@ export function LoginForm() {
 
   const { mutation, isLoading } = useApi(signin);
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: LoginType) => {
     try {
       await mutation.mutateAsync(data);
-      toast.success("logged successfully");
-      route.replace("/");
-    } catch {
-      toast.error("invalid creadentials");
+      toast.success("Logged in successfully");
+      router.push(redirectTo);
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Invalid credentials");
     }
   };
   return (

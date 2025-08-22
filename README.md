@@ -1,36 +1,196 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VERB CRM - School Management System
 
-## Getting Started
+A comprehensive school management system built with Next.js, TypeScript, and Appwrite.
 
-First, run the development server:
+## Features
 
+### Core Modules
+- **Student Management**: Complete student lifecycle management from admission to graduation
+- **Teacher Management**: Teacher profiles, qualifications, and assignments
+- **Class & Section Management**: Organize classes, sections, and subjects
+- **Enrollment Management**: Handle student enrollments and transfers
+- **Attendance System**: Daily attendance tracking for students
+- **Examination Management**: Schedule exams, manage results, and generate reports
+- **Fee Management**: Track fees, payments, and generate receipts
+- **Academic Year Management**: Manage academic sessions
+
+### User Roles
+- **Admin**: Full system access and management capabilities
+- **Teacher**: Class management, attendance, grades, and student information
+- **Student**: View grades, attendance, fees, and assignments
+- **Parent**: Monitor child's progress, fees, and attendance
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, Shadcn UI
+- **Backend**: Appwrite (BaaS)
+- **State Management**: Redux Toolkit, React Query
+- **Forms**: React Hook Form, Zod validation
+- **Authentication**: Appwrite Auth
+
+## Prerequisites
+
+- Node.js 18+ and npm/yarn
+- Appwrite instance (cloud or self-hosted)
+- Email service for notifications (optional)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-repo/verb-crm-next.git
+cd verb-crm-next
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
+
+4. Configure your `.env` file with your Appwrite credentials and collection IDs.
+
+5. Set up Appwrite:
+   - Create a new project in Appwrite
+   - Create a database
+   - Create the following collections with appropriate attributes:
+     - Users
+     - Schools
+     - Students
+     - Teachers
+     - Classes
+     - Sections
+     - Subjects
+     - Enrollments
+     - Academic Years
+     - Attendance
+     - Exams
+     - Exam Schedules
+     - Results
+     - Fees
+     - Fee Payments
+     - Admissions
+     - Enquiries
+
+6. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js app directory
+│   ├── auth/              # Authentication pages
+│   └── dashboard/         # Dashboard pages
+├── appwrite/              # Appwrite configuration and services
+│   ├── config.ts          # Appwrite client configuration
+│   ├── interface/         # TypeScript interfaces
+│   ├── schema/           # Zod schemas for validation
+│   └── services/         # Service functions for API calls
+├── components/           # Reusable React components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions
+├── providers/           # React context providers
+└── store/              # Redux store configuration
+```
 
-## Learn More
+## Key Features Implementation
 
-To learn more about Next.js, take a look at the following resources:
+### Authentication
+- Multi-step registration process
+- Role-based authentication
+- Session management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Student Management
+- Student admission with detailed information
+- Parent/Guardian details
+- Academic history tracking
+- Document management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Class Management
+- Dynamic class and section creation
+- Subject assignment
+- Teacher allocation
+- Strength management
 
-## Deploy on Vercel
+### Attendance System
+- Daily attendance marking
+- Bulk attendance operations
+- Attendance reports and statistics
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Examination System
+- Exam scheduling
+- Result management
+- Grade calculation
+- Report card generation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Fee Management
+- Fee structure definition
+- Payment tracking
+- Receipt generation
+- Due fee alerts
+
+## Development
+
+### Running Tests
+```bash
+npm run test
+# or
+yarn test
+```
+
+### Building for Production
+```bash
+npm run build
+# or
+yarn build
+```
+
+### Code Quality
+```bash
+npm run lint
+npm run type-check
+```
+
+## Deployment
+
+The application can be deployed to any platform that supports Next.js:
+- Vercel (recommended)
+- Netlify
+- AWS
+- Docker
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support, email support@verbcrm.com or join our Discord channel.
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- UI components from [Shadcn UI](https://ui.shadcn.com/)
+- Backend powered by [Appwrite](https://appwrite.io/)
